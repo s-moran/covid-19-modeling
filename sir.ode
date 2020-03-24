@@ -1,0 +1,41 @@
+# Standard SIR model
+#
+# Date: March 2020
+# Author: s-moran (Spencer Moran)
+#
+# Params
+# =========
+# beta: the average number of contacts 
+# 	between susceptible and infected
+# nu:   recovery rate
+# P:    population size = 100 million
+#
+P=1e8
+par beta=0.35 nu=0.2
+
+s'=-(beta/P)*s*i
+i'=(beta/P)*s*i - nu*i
+r'=nu*i
+
+# Other equations
+# n:=total number of cases
+aux n=i+r
+
+# initial conditions:
+# 100 infected, none recovered
+s(0)=99999900
+i(0)=100
+r(0)=0
+
+# 1 year integration time
+@ dt=1, total=365
+@ nplot=4
+@ yp=n
+@ yp2=s
+@ yp3=i
+@ yp4=r
+@ xlo=0,xhi=365,ylo=0,yhi=1e8
+@ maxstor=100000
+@ bound=300000000
+@ runnow=1
+done
