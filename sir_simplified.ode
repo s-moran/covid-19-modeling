@@ -1,0 +1,30 @@
+# simplified SIR model
+#
+# Date: March 2020
+# Author: s-moran (Spencer Moran)
+#
+# Params
+# =========
+# beta:  Average number of transmissions to susceptible individuals per infected 		 individual per unit time. Dimension: 1/T
+# nu:    Rate of recovery. Number of individuals recovered per infected individual per 		 unit time. Dimension: 1/T
+
+par beta=0.15 nu=0.1
+	   
+s'=-beta*s*i
+i'=beta*s*i-nu*i
+
+# initial conditions:
+# 0.1% infected
+s(0)=0.999
+i(0)=0.001
+
+# 1 year integration time
+@ dt=1, total=365
+@ nplot=2
+@ yp=s
+@ yp2=i
+@ xlo=0,xhi=365,ylo=0,yhi=1
+@ maxstor=100000
+@ bound=100
+@ runnow=1
+done
